@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, ArrowRight, Printer, CheckCircle2, Scale } from 'lucide-react';
+import { MapPin, ArrowRight, Printer, CheckCircle2, Scale, FileDown } from 'lucide-react';
+import DemoSlip from '../assets/DemoSlip.pdf';
+import wallpaperBg from '../assets/Wallpaper.png';
 
 const WeighbridgeAnimation = () => {
     const [phase, setPhase] = useState(0);
@@ -320,11 +322,23 @@ const WeighbridgeAnimation = () => {
 
 const Hero = () => {
     return (
-        <section id="home" className="relative min-h-screen pt-20 flex flex-col lg:flex-row bg-slate-900 overflow-hidden">
-            {/* Background */}
+        <section id="home" className="relative min-h-screen pt-20 flex flex-col lg:flex-row overflow-hidden">
+            {/* Wallpaper Background */}
+            <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${wallpaperBg})` }}
+            />
+
+            {/* Dark Overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
+
+            {/* Decorative Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-industrial-blue/15 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[80px]" />
+                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-industrial-blue/10 rounded-full blur-[100px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/8 rounded-full blur-[80px]" />
+                {/* Golden accent line - matching wallpaper */}
+                <div className="absolute top-1/3 left-0 w-32 h-0.5 bg-gradient-to-r from-amber-400/60 to-transparent" />
+                <div className="absolute top-1/3 right-0 w-32 h-0.5 bg-gradient-to-l from-amber-400/60 to-transparent" />
             </div>
 
             {/* Text Content */}
@@ -334,46 +348,83 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
+                    {/* Since 1968 Badge - matching wallpaper */}
                     <motion.div
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-industrial-blue/20 border border-industrial-blue/40 text-industrial-blue mb-6"
-                        whileHover={{ scale: 1.03 }}
+                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-800/80 border border-amber-400/30 mb-6 backdrop-blur-sm"
+                        whileHover={{ scale: 1.03, borderColor: 'rgba(251, 191, 36, 0.5)' }}
                     >
-                        <MapPin size={14} />
-                        <span className="text-xs font-semibold tracking-wide uppercase">Plot P-6, MIDC Amravati</span>
+                        <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                        <span className="text-xs font-semibold tracking-[0.2em] uppercase text-amber-400">Since 1968</span>
+                        <span className="text-slate-500">|</span>
+                        <MapPin size={14} className="text-industrial-blue" />
+                        <span className="text-xs font-medium tracking-wide text-slate-300">MIDC Amravati</span>
                     </motion.div>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.1] text-white">
-                        Precision Weighing for{' '}
+                    {/* Main Heading - Brand Typography */}
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+                        <span className="text-white">AGARWAL</span>
+                        <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-industrial-blue via-cyan-400 to-industrial-blue bg-[length:200%_auto] animate-gradient">
-                            India's Logistics
+                            DHARAMKATA
                         </span>
                     </h1>
 
-                    <p className="text-slate-400 text-lg max-w-lg mb-8 leading-relaxed">
-                        Government approved digital weighbridge with <span className="text-white font-medium">100% accuracy</span>.
-                        Serving transporters 24/7 with instant computerized weight slips.
+                    {/* Tagline */}
+                    <p className="text-xl sm:text-2xl font-light text-slate-300 mb-4 tracking-wide">
+                        Digital Weighbridge Services
                     </p>
 
+                    <p className="text-slate-400 text-base max-w-lg mb-8 leading-relaxed">
+                        Government approved weighbridge with <span className="text-amber-400 font-semibold">100% accuracy</span>.
+                        Serving transporters <span className="text-industrial-blue font-semibold">24/7</span> with instant computerized weight slips.
+                    </p>
+
+                    {/* CTA Buttons */}
                     <div className="flex flex-wrap gap-4">
                         <motion.a
-                            whileHover={{ scale: 1.03, boxShadow: '0 0 25px rgba(0,174,239,0.4)' }}
+                            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(0,174,239,0.5)' }}
                             whileTap={{ scale: 0.97 }}
                             href="https://maps.google.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-6 py-3.5 bg-industrial-blue text-white rounded-lg font-bold text-sm shadow-lg flex items-center gap-2"
+                            className="px-7 py-4 bg-gradient-to-r from-industrial-blue to-cyan-500 text-white rounded-xl font-bold text-sm shadow-lg flex items-center gap-2 uppercase tracking-wider"
                         >
                             Get Directions <ArrowRight size={18} />
                         </motion.a>
 
                         <motion.a
-                            whileHover={{ scale: 1.03, backgroundColor: 'rgba(0,174,239,0.15)' }}
+                            whileHover={{ scale: 1.03, backgroundColor: 'rgba(251,191,36,0.1)', borderColor: 'rgba(251,191,36,0.6)' }}
                             whileTap={{ scale: 0.97 }}
-                            href="tel:+916309593555"
-                            className="px-6 py-3.5 bg-transparent border-2 border-industrial-blue/50 text-industrial-blue rounded-lg font-semibold text-sm flex items-center gap-2"
+                            href={DemoSlip}
+                            download="Agarwal_Dharamkata_Demo_Parchi.pdf"
+                            className="px-7 py-4 bg-transparent border-2 border-amber-400/40 text-amber-400 rounded-xl font-semibold text-sm flex items-center gap-2 uppercase tracking-wider transition-all"
                         >
-                            Call: +91 63095 93555
+                            <FileDown size={18} />
+                            Demo Parchi
                         </motion.a>
+                    </div>
+
+                    {/* Trust Indicators */}
+                    <div className="flex items-center gap-6 mt-10">
+                        <div className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-full bg-industrial-blue/20 flex items-center justify-center">
+                                <Scale size={20} className="text-industrial-blue" />
+                            </div>
+                            <div>
+                                <p className="text-white font-bold text-sm">Govt. Approved</p>
+                                <p className="text-slate-500 text-xs">Certified Weighbridge</p>
+                            </div>
+                        </div>
+                        <div className="w-px h-10 bg-slate-700" />
+                        <div className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center">
+                                <span className="text-amber-400 font-bold text-sm">24/7</span>
+                            </div>
+                            <div>
+                                <p className="text-white font-bold text-sm">Always Open</p>
+                                <p className="text-slate-500 text-xs">Round the Clock</p>
+                            </div>
+                        </div>
                     </div>
                 </motion.div>
             </div>

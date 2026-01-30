@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle, Award, Users, Clock } from 'lucide-react';
-import truckImage from '../assets/Gemini_Generated_Image_f14p9rf14p9rf14p (1).png';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, Award, Users, Clock, X, ZoomIn } from 'lucide-react';
+import demoSlipImage from '../assets/DemoSlip_img.jpg';
 
 const features = [
     { text: "Government Approved & Certified", icon: Award },
@@ -18,6 +18,8 @@ const stats = [
 ];
 
 const About = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <section id="about" className="py-24 bg-slate-900 relative overflow-hidden">
             {/* Background decoration */}
@@ -54,13 +56,16 @@ const About = () => {
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     {/* Image */}
                     <motion.div
-                        className="lg:w-1/2"
+                        className="lg:w-2/5"
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="relative group">
+                        <div
+                            className="relative group max-w-sm mx-auto cursor-pointer"
+                            onClick={() => setIsModalOpen(true)}
+                        >
                             {/* Glowing Border Animation */}
                             <motion.div
                                 className="absolute -inset-1 bg-gradient-to-r from-industrial-blue via-cyan-400 to-industrial-blue rounded-2xl opacity-75 blur-lg group-hover:opacity-100 transition-opacity duration-500"
@@ -76,17 +81,29 @@ const About = () => {
                             />
 
                             <motion.img
-                                src={truckImage}
-                                alt="Indian Truck on Weighbridge"
-                                className="relative rounded-2xl shadow-2xl z-10 ring-2 ring-industrial-blue/50 w-full object-cover"
+                                src={demoSlipImage}
+                                alt="Demo Weighbridge Slip"
+                                className="relative rounded-2xl shadow-2xl z-10 ring-2 ring-industrial-blue/50 w-full h-auto object-contain"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.3 }}
                             />
 
+                            {/* Zoom Icon Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                                <div className="bg-industrial-blue/80 p-4 rounded-full">
+                                    <ZoomIn size={32} className="text-white" />
+                                </div>
+                            </div>
+
+                            {/* Label */}
+                            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-industrial-blue text-white px-4 py-2 rounded-full text-sm font-semibold z-20 shadow-lg flex items-center gap-2">
+                                <ZoomIn size={14} />
+                                Click to View
+                            </div>
+
                             {/* Decorative Glow elements */}
                             <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-industrial-blue/30 rounded-full blur-3xl z-0 animate-pulse" />
                             <div className="absolute -top-6 -left-6 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl z-0" />
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-industrial-blue/10 rounded-2xl blur-xl z-0" />
                         </div>
                     </motion.div>
 
@@ -133,6 +150,58 @@ const About = () => {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Modal/Lightbox for Full-Size Image */}
+            <AnimatePresence>
+                {isModalOpen && (
+                    <motion.div
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsModalOpen(false)}
+                    >
+                        {/* Close Button */}
+                        <motion.button
+                            className="absolute top-6 right-6 bg-slate-800 hover:bg-industrial-blue text-white p-3 rounded-full shadow-lg z-50 transition-colors"
+                            onClick={() => setIsModalOpen(false)}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <X size={24} />
+                        </motion.button>
+
+                        {/* Modal Content */}
+                        <motion.div
+                            className="relative max-w-2xl max-h-[90vh] overflow-hidden"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Glowing Border */}
+                            <div className="absolute -inset-2 bg-gradient-to-r from-industrial-blue via-cyan-400 to-industrial-blue rounded-3xl opacity-75 blur-xl" />
+
+                            <img
+                                src={demoSlipImage}
+                                alt="Demo Weighbridge Slip - Full Size"
+                                className="relative rounded-2xl shadow-2xl ring-4 ring-industrial-blue/50 max-h-[85vh] w-auto object-contain"
+                            />
+
+                            {/* Label */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-industrial-blue text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                Sample Weighbridge Parchi
+                            </div>
+                        </motion.div>
+
+                        {/* Instructions */}
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-400 text-sm">
+                            Click anywhere or press X to close
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
