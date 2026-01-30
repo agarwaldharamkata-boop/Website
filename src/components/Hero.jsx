@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, ArrowRight, Printer, CheckCircle2, Scale, FileDown } from 'lucide-react';
 import DemoSlip from '../assets/DemoSlip.pdf';
-import wallpaperBg from '../assets/Wallpaper.png';
 
 const WeighbridgeAnimation = () => {
     const [phase, setPhase] = useState(0);
@@ -322,21 +321,15 @@ const WeighbridgeAnimation = () => {
 
 const Hero = () => {
     return (
-        <section id="home" className="relative min-h-screen pt-20 flex flex-col lg:flex-row overflow-hidden">
-            {/* Wallpaper Background */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url(${wallpaperBg})` }}
-            />
-
-            {/* Dark Overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
+        <section id="home" className="relative min-h-screen pt-20 flex flex-col lg:flex-row bg-slate-900 overflow-hidden">
+            {/* Background Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
 
             {/* Decorative Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-industrial-blue/10 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/8 rounded-full blur-[80px]" />
-                {/* Golden accent line - matching wallpaper */}
+                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-industrial-blue/15 rounded-full blur-[100px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[80px]" />
+                {/* Golden accent lines */}
                 <div className="absolute top-1/3 left-0 w-32 h-0.5 bg-gradient-to-r from-amber-400/60 to-transparent" />
                 <div className="absolute top-1/3 right-0 w-32 h-0.5 bg-gradient-to-l from-amber-400/60 to-transparent" />
             </div>
